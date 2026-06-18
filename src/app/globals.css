@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+:root {
+  --color-bg: #020817;
+  --color-sidebar: rgba(15, 23, 42, 0.95);
+  --color-card: rgba(15, 23, 42, 0.8);
+  --color-border: rgba(51, 65, 85, 0.5);
+  --color-text: #e2e8f0;
+  --color-muted: #64748b;
+  --color-label: #94a3b8;
+  --color-cyan: #22d3ee;
+  --color-violet: #a78bfa;
+  --color-green: #34d399;
+  --color-amber: #fbbf24;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #020817;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(6, 182, 212, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+  background-attachment: fixed;
+  color: #e2e8f0;
+  font-family: var(--font-geist-sans, ui-sans-serif, system-ui, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-mono {
+  font-family: var(--font-geist-mono, ui-monospace, 'Courier New', monospace);
+}
