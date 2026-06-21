@@ -2,10 +2,11 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useState, useEffect } from 'react'
 
 const APPS = [
   { name: 'Payments', href: '/payments', color: '#22d3ee', dot: '#22d3ee', soon: false },
-  { name: 'Driver', href: '/driver', color: '#a78bfa', dot: '#a78bfa', soon: true },
+  { name: 'Driver', href: '/driver', color: '#a78bfa', dot: '#a78bfa', soon: false },
   { name: 'Rider', href: '/rider', color: '#34d399', dot: '#34d399', soon: true },
   { name: 'Feedback', href: '/feedback', color: '#fbbf24', dot: '#fbbf24', soon: true },
 ]
@@ -18,6 +19,11 @@ const PAYMENTS_VIEWS = [
 
 export default function Sidebar() {
   const pathname = usePathname()
+  const [mobileOpen, setMobileOpen] = useState(false)
+
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [pathname])
 
   const isPaymentsActive = pathname.startsWith('/payments')
 
@@ -27,29 +33,67 @@ export default function Sidebar() {
   }
 
   return (
-    <aside
-      style={{
-        width: '200px',
-        minWidth: '200px',
-        minHeight: '100vh',
-        backgroundColor: 'rgba(15, 23, 42, 0.95)',
-        borderRight: '1px solid rgba(51, 65, 85, 0.5)',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '24px 12px',
-        position: 'sticky',
-        top: 0,
-        height: '100vh',
-        overflowY: 'auto',
-      }}
-    >
-      {/* Logo */}
-      <div style={{ marginBottom: '32px', paddingLeft: '8px' }}>
-        <div style={{ color: '#22d3ee', fontWeight: 700, fontSize: '15px', letterSpacing: '-0.01em' }}>
-          DriveMe Analytics
+    <>
+      {/* Mobile Toggle Button */}
+      <button
+        onClick={() => setMobileOpen(!mobileOpen)}
+        style={{
+          position: 'fixed',
+          top: '20px',
+          left: '20px',
+          zIndex: 60,
+          padding: '8px',
+          borderRadius: '8px',
+          backgroundColor: '#1e293b',
+          color: '#e2e8f0',
+          border: '1px solid #334155',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        className="md:hidden shadow-lg"
+      >
+        {mobileOpen ? '✕' : '☰'}
+      </button>
+
+      {/* Mobile Overlay */}
+      {mobileOpen && (
+        <div 
+          className="md:hidden"
+          style={{
+            position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 40, backdropFilter: 'blur(2px)'
+          }}
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
+      <aside
+        className={`md:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        style={{
+          width: '200px',
+          minWidth: '200px',
+          minHeight: '100vh',
+          backgroundColor: 'rgba(15, 23, 42, 0.95)',
+          borderRight: '1px solid rgba(51, 65, 85, 0.5)',
+          display: 'flex',
+          flexDirection: 'column',
+          padding: '24px 12px',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          height: '100vh',
+          overflowY: 'auto',
+          zIndex: 50,
+          transition: 'transform 0.3s ease-in-out',
+        }}
+      >
+        {/* Logo */}
+        <div style={{ marginBottom: '32px', paddingLeft: '8px' }} className="mt-12 md:mt-0">
+          <div style={{ color: '#22d3ee', fontWeight: 700, fontSize: '15px', letterSpacing: '-0.01em' }}>
+            DriveMe Analytics
+          </div>
+          <div style={{ color: '#64748b', fontSize: '11px', marginTop: '2px' }}>▸ Live Dashboard</div>
         </div>
-        <div style={{ color: '#64748b', fontSize: '11px', marginTop: '2px' }}>▸ Live Dashboard</div>
-      </div>
 
       {/* Apps section */}
       <div style={{ marginBottom: '8px' }}>
@@ -159,5 +203,6 @@ export default function Sidebar() {
         </div>
       )}
     </aside>
+    </>
   )
 }

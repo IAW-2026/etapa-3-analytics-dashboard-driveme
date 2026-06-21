@@ -14,11 +14,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div style={{ display: 'flex', minHeight: '100vh' }}>
           <Sidebar />
           <main
+            className="md:pl-[200px]"
             style={{
               flex: 1,
               minHeight: '100vh',
               overflowY: 'auto',
-              padding: '0',
+              padding: '16px',
             }}
           >
             {children}

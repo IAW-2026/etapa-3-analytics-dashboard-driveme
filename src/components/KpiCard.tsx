@@ -1,10 +1,12 @@
-type AccentColor = 'cyan' | 'violet' | 'green' | 'amber'
+type AccentColor = 'cyan' | 'violet' | 'green' | 'amber' | 'blue' | 'red'
 
 const ACCENT_COLORS: Record<AccentColor, string> = {
   cyan: '#22d3ee',
   violet: '#a78bfa',
   green: '#34d399',
   amber: '#fbbf24',
+  blue: '#3b82f6',
+  red: '#ef4444',
 }
 
 interface KpiCardProps {
