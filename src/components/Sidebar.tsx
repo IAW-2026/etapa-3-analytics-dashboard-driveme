@@ -3,18 +3,19 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
+import { Badge, Crosshair, Route, ShieldAlert, ChevronRight, MapPinned } from 'lucide-react'
 
 const APPS = [
-  { name: 'Payments', href: '/payments', color: '#22d3ee', dot: '#22d3ee', soon: false },
-  { name: 'Driver', href: '/driver', color: '#a78bfa', dot: '#a78bfa', soon: false },
-  { name: 'Rider', href: '/rider', color: '#34d399', dot: '#34d399', soon: true },
-  { name: 'Feedback', href: '/feedback', color: '#fbbf24', dot: '#fbbf24', soon: true },
+  { name: 'Payments', href: '/payments', icon: Badge, soon: false },
+  { name: 'Driver', href: '/driver', icon: Crosshair, soon: false },
+  { name: 'Rider', href: '/rider', icon: Route, soon: true },
+  { name: 'Feedback', href: '/feedback', icon: ShieldAlert, soon: true },
 ]
 
 const PAYMENTS_VIEWS = [
-  { name: 'Overview', href: '/payments' },
-  { name: 'Transacciones', href: '/payments/transacciones' },
-  { name: 'Conductores', href: '/payments/conductores' },
+  { name: 'Overview', href: '/payments', icon: MapPinned },
+  { name: 'Transacciones', href: '/payments/transacciones', icon: ChevronRight },
+  { name: 'Conductores', href: '/payments/conductores', icon: ChevronRight },
 ]
 
 export default function Sidebar() {
@@ -43,15 +44,12 @@ export default function Sidebar() {
           left: '20px',
           zIndex: 60,
           padding: '8px',
-          borderRadius: '8px',
-          backgroundColor: '#1e293b',
-          color: '#e2e8f0',
-          border: '1px solid #334155',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          borderRadius: 'var(--radius-button)',
+          backgroundColor: 'var(--color-surface)',
+          color: 'var(--color-text-primary)',
+          border: '1px solid rgba(220, 38, 38, 0.15)',
         }}
-        className="md:hidden shadow-lg"
+        className="md:hidden flex items-center justify-center shadow-lg"
       >
         {mobileOpen ? '✕' : '☰'}
       </button>
@@ -61,7 +59,7 @@ export default function Sidebar() {
         <div 
           className="md:hidden"
           style={{
-            position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 40, backdropFilter: 'blur(2px)'
+            position: 'fixed', inset: 0, backgroundColor: 'rgba(5,5,5,0.8)', zIndex: 40, backdropFilter: 'blur(4px)'
           }}
           onClick={() => setMobileOpen(false)}
         />
@@ -70,14 +68,14 @@ export default function Sidebar() {
       <aside
         className={`md:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}
         style={{
-          width: '200px',
-          minWidth: '200px',
+          width: '240px',
+          minWidth: '240px',
           minHeight: '100vh',
-          backgroundColor: 'rgba(15, 23, 42, 0.95)',
-          borderRight: '1px solid rgba(51, 65, 85, 0.5)',
+          backgroundColor: 'var(--color-surface)',
+          borderRight: '1px solid rgba(220, 38, 38, 0.15)',
           display: 'flex',
           flexDirection: 'column',
-          padding: '24px 12px',
+          padding: '24px 16px',
           position: 'fixed',
           top: 0,
           left: 0,
@@ -85,33 +83,25 @@ export default function Sidebar() {
           overflowY: 'auto',
           zIndex: 50,
           transition: 'transform 0.3s ease-in-out',
+          boxShadow: '2px 0 20px rgba(0,0,0,0.5)'
         }}
       >
         {/* Logo */}
         <div style={{ marginBottom: '32px', paddingLeft: '8px' }} className="mt-12 md:mt-0">
-          <div style={{ color: '#22d3ee', fontWeight: 700, fontSize: '15px', letterSpacing: '-0.01em' }}>
-            DriveMe Analytics
+          <div className="font-michroma" style={{ color: 'var(--color-primary)', fontWeight: 700, fontSize: '15px', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+            DriveMe
           </div>
-          <div style={{ color: '#64748b', fontSize: '11px', marginTop: '2px' }}>▸ Live Dashboard</div>
+          <div style={{ color: 'var(--color-text-muted)', fontSize: '11px', marginTop: '4px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>▸ Tactical Command</div>
         </div>
 
       {/* Apps section */}
-      <div style={{ marginBottom: '8px' }}>
-        <div
-          style={{
-            color: '#475569',
-            fontSize: '10px',
-            fontWeight: 600,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            paddingLeft: '8px',
-            marginBottom: '4px',
-          }}
-        >
+      <div style={{ marginBottom: '16px' }}>
+        <div className="section-label" style={{ fontSize: '10px', paddingLeft: '8px', marginBottom: '8px' }}>
           Apps
         </div>
         {APPS.map((app) => {
           const active = isActive(app.href)
+          const Icon = app.icon
           return (
             <Link
               key={app.name}
@@ -119,37 +109,31 @@ export default function Sidebar() {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px',
-                padding: '7px 8px',
-                borderRadius: '6px',
-                marginBottom: '2px',
+                gap: '12px',
+                padding: '10px 12px',
+                borderRadius: 'var(--radius-button)',
+                marginBottom: '4px',
                 textDecoration: 'none',
-                fontSize: '13px',
-                transition: 'background 0.15s',
-                backgroundColor: active ? 'rgba(34, 211, 238, 0.08)' : 'transparent',
-                border: active ? '1px solid rgba(34, 211, 238, 0.15)' : '1px solid transparent',
-                color: active ? '#22d3ee' : '#94a3b8',
+                fontSize: '14px',
+                transition: 'all 0.15s ease-in-out',
+                backgroundColor: active ? 'rgba(220, 38, 38, 0.08)' : 'transparent',
+                border: active ? '1px solid rgba(220, 38, 38, 0.2)' : '1px solid transparent',
+                color: active ? 'var(--color-primary)' : 'var(--color-text-secondary)',
+                boxShadow: active ? '0 0 15px rgba(220, 38, 38, 0.1)' : 'none'
               }}
             >
-              <span
-                style={{
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  backgroundColor: app.dot,
-                  flexShrink: 0,
-                }}
-              />
-              <span style={{ flex: 1 }}>{app.name}</span>
+              <Icon size={16} />
+              <span style={{ flex: 1, fontWeight: active ? 500 : 400 }}>{app.name}</span>
               {app.soon && (
                 <span
                   style={{
                     fontSize: '9px',
-                    color: '#475569',
-                    backgroundColor: 'rgba(71, 85, 105, 0.2)',
-                    padding: '1px 5px',
+                    color: 'var(--color-text-muted)',
+                    backgroundColor: 'rgba(255,255,255,0.05)',
+                    padding: '2px 6px',
                     borderRadius: '4px',
-                    letterSpacing: '0.02em',
+                    letterSpacing: '0.05em',
+                    textTransform: 'uppercase'
                   }}
                 >
                   próx.
@@ -163,21 +147,12 @@ export default function Sidebar() {
       {/* Vistas section — only when payments active */}
       {isPaymentsActive && (
         <div style={{ marginTop: '16px' }}>
-          <div
-            style={{
-              color: '#475569',
-              fontSize: '10px',
-              fontWeight: 600,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              paddingLeft: '8px',
-              marginBottom: '4px',
-            }}
-          >
+          <div className="section-label" style={{ fontSize: '10px', paddingLeft: '8px', marginBottom: '8px' }}>
             Vistas
           </div>
           {PAYMENTS_VIEWS.map((view) => {
             const active = isActive(view.href)
+            const Icon = view.icon
             return (
               <Link
                 key={view.name}
@@ -185,18 +160,20 @@ export default function Sidebar() {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  padding: '6px 8px',
-                  borderRadius: '6px',
-                  marginBottom: '2px',
+                  gap: '12px',
+                  padding: '8px 12px',
+                  borderRadius: 'var(--radius-button)',
+                  marginBottom: '4px',
                   textDecoration: 'none',
                   fontSize: '13px',
-                  transition: 'background 0.15s',
-                  backgroundColor: active ? 'rgba(34, 211, 238, 0.08)' : 'transparent',
-                  border: active ? '1px solid rgba(34, 211, 238, 0.15)' : '1px solid transparent',
-                  color: active ? '#22d3ee' : '#64748b',
+                  transition: 'all 0.15s ease-in-out',
+                  backgroundColor: active ? 'rgba(220, 38, 38, 0.05)' : 'transparent',
+                  border: active ? '1px solid rgba(220, 38, 38, 0.1)' : '1px solid transparent',
+                  color: active ? 'var(--color-primary)' : 'var(--color-text-secondary)',
                 }}
               >
-                {view.name}
+                <Icon size={14} />
+                <span>{view.name}</span>
               </Link>
             )
           })}

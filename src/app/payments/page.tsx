@@ -38,9 +38,9 @@ function buildDonutData(transacciones: Awaited<ReturnType<typeof getTransaccione
     if (tx.estado in counts) counts[tx.estado as keyof typeof counts]++
   }
   return [
-    { name: 'CONFIRMADO', value: counts.CONFIRMADO, color: '#34d399' },
-    { name: 'PENDIENTE', value: counts.PENDIENTE, color: '#fbbf24' },
-    { name: 'CANCELADO', value: counts.CANCELADO, color: '#f87171' },
+    { name: 'CONFIRMADO', value: counts.CONFIRMADO, color: 'var(--color-success)' },
+    { name: 'PENDIENTE', value: counts.PENDIENTE, color: 'var(--color-warning)' },
+    { name: 'CANCELADO', value: counts.CANCELADO, color: 'var(--color-error)' },
   ]
 }
 
@@ -66,31 +66,14 @@ export default async function PaymentsOverviewPage() {
   const donutData = buildDonutData(transacciones)
   const metodoPago = buildMetodoPagoData(transacciones)
 
-  const card: React.CSSProperties = {
-    backgroundColor: 'rgba(15, 23, 42, 0.8)',
-    border: '1px solid rgba(51, 65, 85, 0.5)',
-    borderRadius: '8px',
-    padding: '20px',
-    backdropFilter: 'blur(4px)',
-  }
-
-  const cardTitle: React.CSSProperties = {
-    color: '#94a3b8',
-    fontSize: '11px',
-    fontWeight: 600,
-    letterSpacing: '0.08em',
-    textTransform: 'uppercase',
-    marginBottom: '16px',
-  }
-
   return (
-    <div style={{ padding: '0 0 48px' }}>
+    <div className="pb-12">
       <Topbar title="Payments Overview" subtitle="Fuente: Payments API — DriveMe" />
 
-      <div style={{ padding: '0 32px', display: 'flex', flexDirection: 'column', gap: '28px' }}>
+      <div className="flex flex-col gap-6 px-0 md:px-2">
 
         {/* Bloque 1 — KPI cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
           <KpiCard
             title="Ingresos empresa"
             value={formatPeso(bancoCentral?.fondosEmpresa)}
@@ -114,39 +97,34 @@ export default async function PaymentsOverviewPage() {
         </div>
 
         {/* Bloque 2 — Charts */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: '16px' }}>
+        <div className="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-4">
           {/* Bar chart */}
-          <div style={card}>
-            <div style={cardTitle}>Transacciones por día — últimos 14 días</div>
-            <BarChart data={barData} color="#22d3ee" height={220} />
+          <div className="brutalist-card p-6">
+            <div className="section-label mb-5 text-[11px]">Transacciones por día — últimos 14 días</div>
+            <BarChart data={barData} color="var(--color-primary)" height={220} />
           </div>
 
           {/* Right stack */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="flex flex-col gap-4">
             {/* Donut */}
-            <div style={card}>
-              <div style={cardTitle}>Estado de transacciones</div>
+            <div className="brutalist-card p-6">
+              <div className="section-label mb-5 text-[11px]">Estado de transacciones</div>
               <DonutChart data={donutData} height={180} />
             </div>
 
             {/* Método de pago */}
-            <div style={card}>
-              <div style={cardTitle}>Método de pago</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div className="brutalist-card p-6">
+              <div className="section-label mb-5 text-[11px]">Método de pago</div>
+              <div className="flex flex-col gap-4">
                 <div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      marginBottom: '4px',
-                    }}
-                  >
-                    <span style={{ color: '#94a3b8', fontSize: '12px' }}>EFECTIVO</span>
+                  <div className="flex justify-between mb-2">
+                    <span style={{ color: 'var(--color-text-secondary)', fontSize: '11px', letterSpacing: '0.05em' }}>EFECTIVO</span>
                     <span
+                      className="font-mono"
                       style={{
-                        color: '#22d3ee',
+                        color: 'var(--color-primary)',
                         fontSize: '12px',
-                        fontFamily: 'ui-monospace, monospace',
+                        textShadow: '0 0 10px rgba(220, 38, 38, 0.4)',
                       }}
                     >
                       {metodoPago.efectivo}%
@@ -154,36 +132,33 @@ export default async function PaymentsOverviewPage() {
                   </div>
                   <div
                     style={{
-                      height: '6px',
-                      backgroundColor: 'rgba(51, 65, 85, 0.4)',
-                      borderRadius: '3px',
+                      height: '4px',
+                      backgroundColor: 'rgba(220, 38, 38, 0.1)',
+                      borderRadius: '2px',
                       overflow: 'hidden',
+                      boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.5)',
                     }}
                   >
                     <div
                       style={{
                         height: '100%',
                         width: `${metodoPago.efectivo}%`,
-                        backgroundColor: '#22d3ee',
-                        borderRadius: '3px',
+                        backgroundColor: 'var(--color-primary)',
+                        borderRadius: '2px',
+                        boxShadow: '0 0 8px var(--color-primary)',
                       }}
                     />
                   </div>
                 </div>
                 <div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      marginBottom: '4px',
-                    }}
-                  >
-                    <span style={{ color: '#94a3b8', fontSize: '12px' }}>MERCADO PAGO</span>
+                  <div className="flex justify-between mb-2">
+                    <span style={{ color: 'var(--color-text-secondary)', fontSize: '11px', letterSpacing: '0.05em' }}>MERCADO PAGO</span>
                     <span
+                      className="font-mono"
                       style={{
-                        color: '#a78bfa',
+                        color: 'var(--color-secondary)',
                         fontSize: '12px',
-                        fontFamily: 'ui-monospace, monospace',
+                        textShadow: '0 0 10px rgba(75, 85, 99, 0.4)',
                       }}
                     >
                       {metodoPago.mercadoPago}%
@@ -191,18 +166,20 @@ export default async function PaymentsOverviewPage() {
                   </div>
                   <div
                     style={{
-                      height: '6px',
-                      backgroundColor: 'rgba(51, 65, 85, 0.4)',
-                      borderRadius: '3px',
+                      height: '4px',
+                      backgroundColor: 'rgba(220, 38, 38, 0.1)',
+                      borderRadius: '2px',
                       overflow: 'hidden',
+                      boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.5)',
                     }}
                   >
                     <div
                       style={{
                         height: '100%',
                         width: `${metodoPago.mercadoPago}%`,
-                        backgroundColor: '#a78bfa',
-                        borderRadius: '3px',
+                        backgroundColor: 'var(--color-secondary)',
+                        borderRadius: '2px',
+                        boxShadow: '0 0 8px var(--color-secondary)',
                       }}
                     />
                   </div>
@@ -213,13 +190,13 @@ export default async function PaymentsOverviewPage() {
         </div>
 
         {/* Bloque 3 — Tables */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-          <div style={card}>
-            <div style={cardTitle}>Últimas transacciones</div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="brutalist-card p-6">
+            <div className="section-label mb-5 text-[11px]">Últimas transacciones</div>
             <TransaccionesTable transacciones={transacciones} limit={8} />
           </div>
-          <div style={card}>
-            <div style={cardTitle}>Top conductores</div>
+          <div className="brutalist-card p-6">
+            <div className="section-label mb-5 text-[11px]">Top conductores</div>
             <BilleterasTable billeteras={billeterasSorted} limit={8} />
           </div>
         </div>

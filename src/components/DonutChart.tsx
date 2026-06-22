@@ -30,11 +30,13 @@ export default function DonutChart({ data, height = 180 }: DonutChartProps) {
           </Pie>
           <Tooltip
             contentStyle={{
-              backgroundColor: 'rgba(15, 23, 42, 0.95)',
-              border: '1px solid rgba(51, 65, 85, 0.5)',
-              borderRadius: '6px',
-              color: '#e2e8f0',
+              backgroundColor: 'rgba(10, 10, 10, 0.9)',
+              border: '1px solid rgba(220, 38, 38, 0.3)',
+              borderRadius: 'var(--radius-input)',
+              color: 'var(--color-text-primary)',
               fontSize: '12px',
+              backdropFilter: 'blur(8px)',
+              boxShadow: '0 0 15px rgba(220, 38, 38, 0.1)',
             }}
           />
         </PieChart>
@@ -52,17 +54,18 @@ export default function DonutChart({ data, height = 180 }: DonutChartProps) {
         }}
       >
         <div
+          className="font-mono"
           style={{
-            color: '#e2e8f0',
+            color: 'var(--color-text-primary)',
             fontSize: '20px',
             fontWeight: 700,
-            fontFamily: 'ui-monospace, monospace',
             lineHeight: 1,
+            textShadow: '0 0 10px rgba(220, 38, 38, 0.4)',
           }}
         >
           {total}
         </div>
-        <div style={{ color: '#64748b', fontSize: '10px', marginTop: '2px' }}>total</div>
+        <div style={{ color: 'var(--color-text-muted)', fontSize: '10px', marginTop: '4px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>total</div>
       </div>
 
       {/* Legend */}
@@ -72,21 +75,22 @@ export default function DonutChart({ data, height = 180 }: DonutChartProps) {
           flexWrap: 'wrap',
           gap: '8px',
           justifyContent: 'center',
-          marginTop: '8px',
+          marginTop: '12px',
         }}
       >
         {data.map((entry) => (
-          <div key={entry.name} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <div key={entry.name} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <span
               style={{
                 width: '8px',
                 height: '8px',
-                borderRadius: '50%',
+                borderRadius: '0px',
                 backgroundColor: entry.color,
+                boxShadow: `0 0 8px ${entry.color}`,
                 flexShrink: 0,
               }}
             />
-            <span style={{ color: '#94a3b8', fontSize: '11px' }}>
+            <span style={{ color: 'var(--color-text-secondary)', fontSize: '11px', letterSpacing: '0.02em' }}>
               {entry.name} ({entry.value})
             </span>
           </div>

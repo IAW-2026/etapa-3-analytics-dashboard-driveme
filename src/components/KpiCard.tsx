@@ -1,12 +1,12 @@
 type AccentColor = 'cyan' | 'violet' | 'green' | 'amber' | 'blue' | 'red'
 
 const ACCENT_COLORS: Record<AccentColor, string> = {
-  cyan: '#22d3ee',
-  violet: '#a78bfa',
-  green: '#34d399',
-  amber: '#fbbf24',
-  blue: '#3b82f6',
-  red: '#ef4444',
+  cyan: 'var(--color-text-primary)',
+  violet: 'var(--color-secondary)',
+  green: 'var(--color-success)',
+  amber: 'var(--color-warning)',
+  blue: 'var(--color-info)',
+  red: 'var(--color-primary)',
 }
 
 interface KpiCardProps {
@@ -21,43 +21,54 @@ export default function KpiCard({ title, value, subtitle, accentColor }: KpiCard
 
   return (
     <div
+      className="brutalist-card"
       style={{
-        backgroundColor: 'rgba(15, 23, 42, 0.8)',
-        border: '1px solid rgba(51, 65, 85, 0.5)',
-        borderRadius: '8px',
-        padding: '20px',
-        backdropFilter: 'blur(4px)',
+        padding: '24px 20px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '8px',
+        gap: '12px',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
       <div
+        className="section-label"
         style={{
-          color: '#94a3b8',
+          color: 'var(--color-text-secondary)',
           fontSize: '11px',
           fontWeight: 600,
-          letterSpacing: '0.08em',
-          textTransform: 'uppercase',
         }}
       >
         {title}
       </div>
       <div
+        className="font-mono"
         style={{
-          color: value != null ? color : '#475569',
-          fontSize: '28px',
+          color: value != null ? color : 'var(--color-text-muted)',
+          fontSize: '32px',
           fontWeight: 700,
-          fontFamily: 'ui-monospace, monospace',
           letterSpacing: '-0.02em',
           lineHeight: 1.1,
+          textShadow: value != null && accentColor === 'red' ? '0 0 15px rgba(220, 38, 38, 0.4)' : 'none',
         }}
       >
         {value != null ? value : '—'}
       </div>
       {subtitle && (
-        <div style={{ color: '#64748b', fontSize: '12px' }}>{subtitle}</div>
+        <div style={{ color: 'var(--color-text-muted)', fontSize: '12px', letterSpacing: '0.02em' }}>{subtitle}</div>
       )}
+      <div 
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          width: '100%',
+          height: '2px',
+          backgroundColor: color,
+          opacity: 0.8,
+          boxShadow: `0 0 10px ${color}`
+        }}
+      />
     </div>
   )
 }

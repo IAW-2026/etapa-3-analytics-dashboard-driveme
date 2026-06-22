@@ -19,44 +19,33 @@ export default function TransaccionesFilter() {
     router.push(`/payments/transacciones?${params.toString()}`)
   }
 
-  const selectStyle: React.CSSProperties = {
-    backgroundColor: 'rgba(15, 23, 42, 0.8)',
-    border: '1px solid rgba(51, 65, 85, 0.5)',
-    borderRadius: '6px',
-    color: '#e2e8f0',
-    fontSize: '13px',
-    padding: '6px 10px',
-    outline: 'none',
-    cursor: 'pointer',
-  }
-
   return (
-    <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <label style={{ color: '#94a3b8', fontSize: '12px', whiteSpace: 'nowrap' }}>Estado:</label>
+        <label className="section-label" style={{ fontSize: '10px' }}>ESTADO:</label>
         <select
-          style={selectStyle}
+          className="brutalist-input font-mono"
+          style={{ padding: '8px 12px', fontSize: '12px', minWidth: '140px', color: 'var(--color-text-primary)' }}
           value={estado}
           onChange={(e) => update('estado', e.target.value)}
         >
-          <option value="">Todos</option>
-          <option value="PENDIENTE">PENDIENTE</option>
-          <option value="CONFIRMADO">CONFIRMADO</option>
-          <option value="CANCELADO">CANCELADO</option>
+          <option value="" style={{ background: 'var(--color-surface)', color: 'var(--color-text-primary)' }}>TODOS</option>
+          <option value="PENDIENTE" style={{ background: 'var(--color-surface)', color: 'var(--color-text-primary)' }}>PENDIENTE</option>
+          <option value="CONFIRMADO" style={{ background: 'var(--color-surface)', color: 'var(--color-text-primary)' }}>CONFIRMADO</option>
+          <option value="CANCELADO" style={{ background: 'var(--color-surface)', color: 'var(--color-text-primary)' }}>CANCELADO</option>
         </select>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <label style={{ color: '#94a3b8', fontSize: '12px', whiteSpace: 'nowrap' }}>
-          Liquidación:
-        </label>
+        <label className="section-label" style={{ fontSize: '10px' }}>LIQUIDACIÓN:</label>
         <select
-          style={selectStyle}
+          className="brutalist-input font-mono"
+          style={{ padding: '8px 12px', fontSize: '12px', minWidth: '140px', color: 'var(--color-text-primary)' }}
           value={estadoLiquidacion}
           onChange={(e) => update('estadoLiquidacion', e.target.value)}
         >
-          <option value="">Todos</option>
-          <option value="PENDIENTE">PENDIENTE</option>
-          <option value="LIQUIDADO">LIQUIDADO</option>
+          <option value="" style={{ background: 'var(--color-surface)', color: 'var(--color-text-primary)' }}>TODOS</option>
+          <option value="PENDIENTE" style={{ background: 'var(--color-surface)', color: 'var(--color-text-primary)' }}>PENDIENTE</option>
+          <option value="LIQUIDADO" style={{ background: 'var(--color-surface)', color: 'var(--color-text-primary)' }}>LIQUIDADO</option>
         </select>
       </div>
     </div>

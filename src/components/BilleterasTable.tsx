@@ -18,7 +18,7 @@ export default function BilleterasTable({ billeteras, limit }: BilleterasTablePr
 
   if (rows.length === 0) {
     return (
-      <div style={{ color: '#475569', fontSize: '13px', padding: '16px 0', textAlign: 'center' }}>
+      <div style={{ color: 'var(--color-text-muted)', fontSize: '13px', padding: '16px 0', textAlign: 'center' }}>
         Sin billeteras
       </div>
     )
@@ -32,15 +32,12 @@ export default function BilleterasTable({ billeteras, limit }: BilleterasTablePr
             {['Conductor', 'Liquidado', 'Pendiente'].map((h) => (
               <th
                 key={h}
+                className="section-label"
                 style={{
-                  color: '#475569',
                   fontSize: '11px',
-                  fontWeight: 600,
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
                   textAlign: 'left',
-                  padding: '8px 12px',
-                  borderBottom: '1px solid rgba(51, 65, 85, 0.5)',
+                  padding: '12px 12px',
+                  borderBottom: '1px solid rgba(220, 38, 38, 0.2)',
                   whiteSpace: 'nowrap',
                 }}
               >
@@ -51,23 +48,23 @@ export default function BilleterasTable({ billeteras, limit }: BilleterasTablePr
         </thead>
         <tbody>
           {rows.map((b) => (
-            <tr key={b.id} style={{ borderBottom: '1px solid rgba(51, 65, 85, 0.2)' }}>
+            <tr key={b.id} className="hover:bg-red-900/10 transition-colors" style={{ borderBottom: '1px solid rgba(220, 38, 38, 0.1)' }}>
               <td
                 style={{
-                  padding: '10px 12px',
-                  color: '#94a3b8',
+                  padding: '12px',
+                  color: 'var(--color-text-secondary)',
                   fontSize: '12px',
-                  fontFamily: 'ui-monospace, monospace',
+                  fontFamily: 'var(--font-geist-mono, monospace)',
                 }}
               >
                 {b.idConductor.slice(0, 8)}…
               </td>
               <td
                 style={{
-                  padding: '10px 12px',
-                  color: '#22d3ee',
+                  padding: '12px',
+                  color: 'var(--color-text-primary)',
                   fontSize: '13px',
-                  fontFamily: 'ui-monospace, monospace',
+                  fontFamily: 'var(--font-geist-mono, monospace)',
                   whiteSpace: 'nowrap',
                 }}
               >
@@ -75,11 +72,12 @@ export default function BilleterasTable({ billeteras, limit }: BilleterasTablePr
               </td>
               <td
                 style={{
-                  padding: '10px 12px',
-                  color: '#a78bfa',
+                  padding: '12px',
+                  color: 'var(--color-primary)',
                   fontSize: '13px',
-                  fontFamily: 'ui-monospace, monospace',
+                  fontFamily: 'var(--font-geist-mono, monospace)',
                   whiteSpace: 'nowrap',
+                  textShadow: '0 0 10px rgba(220, 38, 38, 0.4)',
                 }}
               >
                 {formatMonto(b.montoPendiente)}

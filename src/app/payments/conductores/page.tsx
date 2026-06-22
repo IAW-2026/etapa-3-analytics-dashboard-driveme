@@ -20,15 +20,15 @@ export default async function ConductoresPage() {
   const totalPendiente = billeteras.reduce((sum, b) => sum + b.montoPendiente, 0)
 
   return (
-    <div style={{ padding: '0 0 48px' }}>
+    <div className="pb-12">
       <Topbar
         title="Conductores"
         subtitle="Fuente: Payments API — /api/pagos/admin/billeteras"
       />
 
-      <div style={{ padding: '0 32px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div className="flex flex-col gap-6 px-0 md:px-2">
         {/* KPI summary */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <KpiCard title="Conductores" value={billeteras.length} accentColor="amber" />
           <KpiCard
             title="Total liquidado"
@@ -43,24 +43,13 @@ export default async function ConductoresPage() {
         </div>
 
         {/* Table */}
-        <div
-          style={{
-            backgroundColor: 'rgba(15, 23, 42, 0.8)',
-            border: '1px solid rgba(51, 65, 85, 0.5)',
-            borderRadius: '8px',
-            backdropFilter: 'blur(4px)',
-            overflow: 'hidden',
-          }}
-        >
+        <div className="brutalist-card" style={{ overflow: 'hidden' }}>
           <div
+            className="section-label"
             style={{
               padding: '16px 20px',
-              borderBottom: '1px solid rgba(51, 65, 85, 0.5)',
-              color: '#94a3b8',
+              borderBottom: '1px solid rgba(220, 38, 38, 0.2)',
               fontSize: '11px',
-              fontWeight: 600,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
             }}
           >
             Billeteras de conductores — ordenado por monto liquidado

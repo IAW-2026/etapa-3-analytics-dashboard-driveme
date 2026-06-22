@@ -17,42 +17,24 @@ function buildStatusDonutData(metrics: any) {
   if (!metrics) return []
   const offline = metrics.conductoresActivos - metrics.conductoresDisponibles - metrics.conductoresOcupados
   return [
-    { name: 'DISPONIBLE', value: metrics.conductoresDisponibles, color: '#34d399' },
-    { name: 'OCUPADO', value: metrics.conductoresOcupados, color: '#fbbf24' },
-    { name: 'OFFLINE', value: offline > 0 ? offline : 0, color: '#94a3b8' },
+    { name: 'DISPONIBLE', value: metrics.conductoresDisponibles, color: 'var(--color-success)' },
+    { name: 'OCUPADO', value: metrics.conductoresOcupados, color: 'var(--color-warning)' },
+    { name: 'OFFLINE', value: offline > 0 ? offline : 0, color: 'var(--color-text-muted)' },
   ]
 }
 
 export default async function DriverAnalyticsPage() {
   const metrics = await getDriverMetrics()
-
-  const card: React.CSSProperties = {
-    backgroundColor: 'rgba(15, 23, 42, 0.8)',
-    border: '1px solid rgba(51, 65, 85, 0.5)',
-    borderRadius: '8px',
-    padding: '20px',
-    backdropFilter: 'blur(4px)',
-  }
-
-  const cardTitle: React.CSSProperties = {
-    color: '#94a3b8',
-    fontSize: '11px',
-    fontWeight: 600,
-    letterSpacing: '0.08em',
-    textTransform: 'uppercase',
-    marginBottom: '16px',
-  }
-
   const statusData = buildStatusDonutData(metrics)
 
   return (
-    <div style={{ padding: '0 0 48px' }}>
+    <div className="pb-12">
       <Topbar title="Driver Analytics" subtitle="Fuente: Driver API — DriveMe" />
 
-      <div style={{ padding: '0 32px', display: 'flex', flexDirection: 'column', gap: '28px' }}>
+      <div className="flex flex-col gap-6">
         
         {/* Bloque 1 — KPI cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <KpiCard
             title="Total Conductores"
             value={metrics?.totalConductores || 0}
@@ -86,18 +68,18 @@ export default async function DriverAnalyticsPage() {
         </div>
 
         {/* Bloque 2 — Charts */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: '16px' }}>
+        <div className="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-4">
           {/* Main Info */}
-          <div style={card}>
-            <div style={cardTitle}>Desempeño de Flota</div>
-            <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '16px', borderBottom: '1px solid rgba(51, 65, 85, 0.5)' }}>
-                <span style={{ color: '#94a3b8', fontSize: '14px' }}>Total de viajes completados históricamente</span>
-                <span style={{ color: '#f8fafc', fontSize: '24px', fontWeight: 600 }}>{metrics?.totalViajesCompletados || 0}</span>
+          <div className="brutalist-card p-6">
+            <div className="section-label mb-5 text-[11px]">Desempeño de Flota</div>
+            <div className="mt-5 flex flex-col gap-4">
+              <div className="flex justify-between items-center pb-4 border-b border-red-900/20">
+                <span className="text-gray-400 text-sm">Total de viajes completados históricamente</span>
+                <span className="text-gray-100 text-2xl font-semibold font-mono">{metrics?.totalViajesCompletados || 0}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '16px', borderBottom: '1px solid rgba(51, 65, 85, 0.5)' }}>
-                <span style={{ color: '#94a3b8', fontSize: '14px' }}>Porcentaje de actividad (Activos vs Total)</span>
-                <span style={{ color: '#34d399', fontSize: '24px', fontWeight: 600 }}>
+              <div className="flex justify-between items-center pb-4 border-b border-red-900/20">
+                <span className="text-gray-400 text-sm">Porcentaje de actividad (Activos vs Total)</span>
+                <span className="text-emerald-500 text-2xl font-semibold font-mono" style={{ textShadow: '0 0 10px rgba(16, 185, 129, 0.4)' }}>
                   {metrics?.totalConductores 
                     ? Math.round((metrics.conductoresActivos / metrics.totalConductores) * 100) 
                     : 0}%
@@ -107,10 +89,10 @@ export default async function DriverAnalyticsPage() {
           </div>
 
           {/* Right stack */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="flex flex-col gap-4">
             {/* Donut */}
-            <div style={card}>
-              <div style={cardTitle}>Estado actual de la flota activa</div>
+            <div className="brutalist-card p-6">
+              <div className="section-label mb-5 text-[11px]">Estado actual de la flota activa</div>
               <DonutChart data={statusData} height={180} />
             </div>
           </div>

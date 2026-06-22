@@ -5,18 +5,24 @@ import type { Transaccion } from '@/lib/services/payments'
 import { getTransacciones } from '@/lib/services/payments'
 
 const ESTADO_COLORS: Record<string, string> = {
-  CONFIRMADO: '#34d399',
-  PENDIENTE: '#fbbf24',
-  CANCELADO: '#f87171',
+  CONFIRMADO: 'var(--color-success)',
+  PENDIENTE: 'var(--color-warning)',
+  CANCELADO: 'var(--color-error)',
 }
 const ESTADO_BG: Record<string, string> = {
-  CONFIRMADO: 'rgba(52, 211, 153, 0.1)',
-  PENDIENTE: 'rgba(251, 191, 36, 0.1)',
-  CANCELADO: 'rgba(248, 113, 113, 0.1)',
+  CONFIRMADO: 'rgba(5, 150, 105, 0.15)',
+  PENDIENTE: 'rgba(217, 119, 6, 0.15)',
+  CANCELADO: 'rgba(239, 68, 68, 0.15)',
 }
+const ESTADO_BORDER: Record<string, string> = {
+  CONFIRMADO: '1px solid rgba(5, 150, 105, 0.3)',
+  PENDIENTE: '1px solid rgba(217, 119, 6, 0.3)',
+  CANCELADO: '1px solid rgba(239, 68, 68, 0.3)',
+}
+
 const LIQ_COLORS: Record<string, string> = {
-  LIQUIDADO: '#22d3ee',
-  PENDIENTE: '#a78bfa',
+  LIQUIDADO: 'var(--color-info)',
+  PENDIENTE: 'var(--color-secondary)',
 }
 
 function formatMonto(monto: number) {
@@ -41,18 +47,20 @@ function formatDate(iso: string) {
   }
 }
 
-function Badge({ text, color, bg }: { text: string; color: string; bg: string }) {
+function Badge({ text, color, bg, border }: { text: string; color: string; bg: string; border?: string }) {
   return (
     <span
       style={{
         display: 'inline-block',
         padding: '2px 8px',
-        borderRadius: '4px',
-        fontSize: '11px',
+        borderRadius: 'var(--radius-input)',
+        fontSize: '10px',
         fontWeight: 600,
-        letterSpacing: '0.03em',
+        letterSpacing: '0.05em',
+        textTransform: 'uppercase',
         color,
         backgroundColor: bg,
+        border: border || 'none'
       }}
     >
       {text}
@@ -81,15 +89,12 @@ function TransaccionesGrid({ transacciones }: { transacciones: Transaccion[] }) 
             {headers.map((h) => (
               <th
                 key={h}
+                className="section-label"
                 style={{
-                  color: '#475569',
                   fontSize: '11px',
-                  fontWeight: 600,
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
                   textAlign: 'left',
-                  padding: '10px 12px',
-                  borderBottom: '1px solid rgba(51, 65, 85, 0.5)',
+                  padding: '12px 12px',
+                  borderBottom: '1px solid rgba(220, 38, 38, 0.2)',
                   whiteSpace: 'nowrap',
                 }}
               >
@@ -100,83 +105,89 @@ function TransaccionesGrid({ transacciones }: { transacciones: Transaccion[] }) 
         </thead>
         <tbody>
           {transacciones.map((tx) => (
-            <tr key={tx.id} style={{ borderBottom: '1px solid rgba(51, 65, 85, 0.15)' }}>
+            <tr key={tx.id} className="hover:bg-red-900/10 transition-colors" style={{ borderBottom: '1px solid rgba(220, 38, 38, 0.1)' }}>
               <td
                 style={{
-                  padding: '10px 12px',
-                  color: '#94a3b8',
+                  padding: '12px',
+                  color: 'var(--color-text-secondary)',
                   fontSize: '11px',
-                  fontFamily: 'ui-monospace, monospace',
+                  fontFamily: 'var(--font-geist-mono, monospace)',
                 }}
               >
                 {tx.id.slice(0, 8)}…
               </td>
               <td
                 style={{
-                  padding: '10px 12px',
-                  color: '#64748b',
+                  padding: '12px',
+                  color: 'var(--color-text-muted)',
                   fontSize: '11px',
-                  fontFamily: 'ui-monospace, monospace',
+                  fontFamily: 'var(--font-geist-mono, monospace)',
                 }}
               >
                 {tx.idViaje?.slice(0, 8)}…
               </td>
               <td
                 style={{
-                  padding: '10px 12px',
-                  color: '#64748b',
+                  padding: '12px',
+                  color: 'var(--color-text-muted)',
                   fontSize: '11px',
-                  fontFamily: 'ui-monospace, monospace',
+                  fontFamily: 'var(--font-geist-mono, monospace)',
                 }}
               >
                 {tx.idPasajero?.slice(0, 8)}…
               </td>
               <td
                 style={{
-                  padding: '10px 12px',
-                  color: '#64748b',
+                  padding: '12px',
+                  color: 'var(--color-text-muted)',
                   fontSize: '11px',
-                  fontFamily: 'ui-monospace, monospace',
+                  fontFamily: 'var(--font-geist-mono, monospace)',
                 }}
               >
                 {tx.idConductor?.slice(0, 8)}…
               </td>
-              <td style={{ padding: '10px 12px', color: '#64748b', fontSize: '12px' }}>
+              <td style={{ padding: '12px', color: 'var(--color-text-secondary)', fontSize: '12px' }}>
                 {tx.metodoPago}
               </td>
               <td
                 style={{
-                  padding: '10px 12px',
-                  color: '#e2e8f0',
+                  padding: '12px',
+                  color: 'var(--color-text-primary)',
                   fontSize: '13px',
-                  fontFamily: 'ui-monospace, monospace',
+                  fontFamily: 'var(--font-geist-mono, monospace)',
                   whiteSpace: 'nowrap',
                 }}
               >
                 {formatMonto(tx.monto)}
               </td>
-              <td style={{ padding: '10px 12px' }}>
+              <td style={{ padding: '12px' }}>
                 <Badge
                   text={tx.estado}
-                  color={ESTADO_COLORS[tx.estado] ?? '#94a3b8'}
-                  bg={ESTADO_BG[tx.estado] ?? 'rgba(148,163,184,0.1)'}
+                  color={ESTADO_COLORS[tx.estado] ?? 'var(--color-text-muted)'}
+                  bg={ESTADO_BG[tx.estado] ?? 'rgba(107, 114, 128, 0.1)'}
+                  border={ESTADO_BORDER[tx.estado] ?? '1px solid rgba(107, 114, 128, 0.3)'}
                 />
               </td>
-              <td style={{ padding: '10px 12px' }}>
+              <td style={{ padding: '12px' }}>
                 <Badge
                   text={tx.estadoLiquidacion}
-                  color={LIQ_COLORS[tx.estadoLiquidacion] ?? '#94a3b8'}
+                  color={LIQ_COLORS[tx.estadoLiquidacion] ?? 'var(--color-text-muted)'}
                   bg={
                     tx.estadoLiquidacion === 'LIQUIDADO'
-                      ? 'rgba(34,211,238,0.1)'
-                      : 'rgba(167,139,250,0.1)'
+                      ? 'rgba(59, 130, 246, 0.15)'
+                      : 'rgba(75, 85, 99, 0.15)'
+                  }
+                  border={
+                    tx.estadoLiquidacion === 'LIQUIDADO'
+                      ? '1px solid rgba(59, 130, 246, 0.3)'
+                      : '1px solid rgba(75, 85, 99, 0.3)'
                   }
                 />
               </td>
               <td
                 style={{
-                  padding: '10px 12px',
-                  color: '#64748b',
+                  padding: '12px',
+                  color: 'var(--color-text-secondary)',
                   fontSize: '11px',
                   whiteSpace: 'nowrap',
                 }}
@@ -189,7 +200,7 @@ function TransaccionesGrid({ transacciones }: { transacciones: Transaccion[] }) 
       </table>
       {transacciones.length === 0 && (
         <div
-          style={{ color: '#475569', fontSize: '13px', padding: '32px', textAlign: 'center' }}
+          style={{ color: 'var(--color-text-muted)', fontSize: '13px', padding: '32px', textAlign: 'center' }}
         >
           Sin resultados para los filtros seleccionados
         </div>
@@ -210,32 +221,24 @@ export default async function TransaccionesPage({ searchParams }: PageProps) {
   const transacciones = await getTransacciones({ estado, estadoLiquidacion })
 
   return (
-    <div style={{ padding: '0 0 48px' }}>
+    <div className="pb-12">
       <Topbar title="Transacciones" subtitle="Fuente: Payments API — /api/pagos/transacciones" />
 
-      <div style={{ padding: '0 32px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div className="flex flex-col gap-5 px-0 md:px-2">
         {/* Filters */}
         <Suspense fallback={null}>
           <TransaccionesFilter />
         </Suspense>
 
         {/* Summary badge */}
-        <div style={{ color: '#64748b', fontSize: '13px' }}>
+        <div style={{ color: 'var(--color-text-secondary)', fontSize: '13px', letterSpacing: '0.05em' }}>
           {transacciones.length} transacción{transacciones.length !== 1 ? 'es' : ''}
           {estado ? ` · estado: ${estado}` : ''}
           {estadoLiquidacion ? ` · liquidación: ${estadoLiquidacion}` : ''}
         </div>
 
         {/* Table */}
-        <div
-          style={{
-            backgroundColor: 'rgba(15, 23, 42, 0.8)',
-            border: '1px solid rgba(51, 65, 85, 0.5)',
-            borderRadius: '8px',
-            backdropFilter: 'blur(4px)',
-            overflow: 'hidden',
-          }}
-        >
+        <div className="brutalist-card" style={{ overflow: 'hidden' }}>
           <TransaccionesGrid transacciones={transacciones} />
         </div>
       </div>

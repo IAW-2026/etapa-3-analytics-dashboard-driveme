@@ -1,15 +1,21 @@
 import type { Transaccion } from '@/lib/services/payments'
 
 const ESTADO_COLORS: Record<string, string> = {
-  CONFIRMADO: '#34d399',
-  PENDIENTE: '#fbbf24',
-  CANCELADO: '#f87171',
+  CONFIRMADO: 'var(--color-success)',
+  PENDIENTE: 'var(--color-warning)',
+  CANCELADO: 'var(--color-error)',
 }
 
 const ESTADO_BG: Record<string, string> = {
-  CONFIRMADO: 'rgba(52, 211, 153, 0.1)',
-  PENDIENTE: 'rgba(251, 191, 36, 0.1)',
-  CANCELADO: 'rgba(248, 113, 113, 0.1)',
+  CONFIRMADO: 'rgba(5, 150, 105, 0.15)',
+  PENDIENTE: 'rgba(217, 119, 6, 0.15)',
+  CANCELADO: 'rgba(239, 68, 68, 0.15)',
+}
+
+const ESTADO_BORDER: Record<string, string> = {
+  CONFIRMADO: '1px solid rgba(5, 150, 105, 0.3)',
+  PENDIENTE: '1px solid rgba(217, 119, 6, 0.3)',
+  CANCELADO: '1px solid rgba(239, 68, 68, 0.3)',
 }
 
 interface TransaccionesTableProps {
@@ -42,7 +48,7 @@ export default function TransaccionesTable({ transacciones, limit }: Transaccion
 
   if (rows.length === 0) {
     return (
-      <div style={{ color: '#475569', fontSize: '13px', padding: '16px 0', textAlign: 'center' }}>
+      <div style={{ color: 'var(--color-text-muted)', fontSize: '13px', padding: '16px 0', textAlign: 'center' }}>
         Sin transacciones
       </div>
     )
@@ -56,15 +62,12 @@ export default function TransaccionesTable({ transacciones, limit }: Transaccion
             {['ID', 'Monto', 'Estado', 'Método', 'Fecha'].map((h) => (
               <th
                 key={h}
+                className="section-label"
                 style={{
-                  color: '#475569',
                   fontSize: '11px',
-                  fontWeight: 600,
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
                   textAlign: 'left',
-                  padding: '8px 12px',
-                  borderBottom: '1px solid rgba(51, 65, 85, 0.5)',
+                  padding: '12px 12px',
+                  borderBottom: '1px solid rgba(220, 38, 38, 0.2)',
                   whiteSpace: 'nowrap',
                 }}
               >
@@ -77,42 +80,45 @@ export default function TransaccionesTable({ transacciones, limit }: Transaccion
           {rows.map((tx) => (
             <tr
               key={tx.id}
+              className="hover:bg-red-900/10 transition-colors"
               style={{
-                borderBottom: '1px solid rgba(51, 65, 85, 0.2)',
+                borderBottom: '1px solid rgba(220, 38, 38, 0.1)',
               }}
             >
               <td
                 style={{
-                  padding: '10px 12px',
-                  color: '#94a3b8',
+                  padding: '12px',
+                  color: 'var(--color-text-secondary)',
                   fontSize: '12px',
-                  fontFamily: 'ui-monospace, monospace',
+                  fontFamily: 'var(--font-geist-mono, monospace)',
                 }}
               >
                 {tx.id.slice(0, 8)}…
               </td>
               <td
                 style={{
-                  padding: '10px 12px',
-                  color: '#e2e8f0',
+                  padding: '12px',
+                  color: 'var(--color-text-primary)',
                   fontSize: '13px',
-                  fontFamily: 'ui-monospace, monospace',
+                  fontFamily: 'var(--font-geist-mono, monospace)',
                   whiteSpace: 'nowrap',
                 }}
               >
                 {formatMonto(tx.monto)}
               </td>
-              <td style={{ padding: '10px 12px' }}>
+              <td style={{ padding: '12px' }}>
                 <span
                   style={{
                     display: 'inline-block',
                     padding: '2px 8px',
-                    borderRadius: '4px',
-                    fontSize: '11px',
+                    borderRadius: 'var(--radius-input)',
+                    fontSize: '10px',
                     fontWeight: 600,
-                    letterSpacing: '0.03em',
-                    color: ESTADO_COLORS[tx.estado] ?? '#94a3b8',
-                    backgroundColor: ESTADO_BG[tx.estado] ?? 'rgba(148, 163, 184, 0.1)',
+                    letterSpacing: '0.05em',
+                    color: ESTADO_COLORS[tx.estado] ?? 'var(--color-text-muted)',
+                    backgroundColor: ESTADO_BG[tx.estado] ?? 'rgba(107, 114, 128, 0.1)',
+                    border: ESTADO_BORDER[tx.estado] ?? '1px solid rgba(107, 114, 128, 0.3)',
+                    textTransform: 'uppercase'
                   }}
                 >
                   {tx.estado}
@@ -120,8 +126,8 @@ export default function TransaccionesTable({ transacciones, limit }: Transaccion
               </td>
               <td
                 style={{
-                  padding: '10px 12px',
-                  color: '#64748b',
+                  padding: '12px',
+                  color: 'var(--color-text-secondary)',
                   fontSize: '12px',
                 }}
               >
@@ -129,8 +135,8 @@ export default function TransaccionesTable({ transacciones, limit }: Transaccion
               </td>
               <td
                 style={{
-                  padding: '10px 12px',
-                  color: '#64748b',
+                  padding: '12px',
+                  color: 'var(--color-text-muted)',
                   fontSize: '12px',
                   whiteSpace: 'nowrap',
                 }}
