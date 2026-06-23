@@ -8,7 +8,7 @@ import { Badge, Crosshair, Route, ShieldAlert, ChevronRight, MapPinned } from 'l
 const APPS = [
   { name: 'Payments', href: '/payments', icon: Badge, soon: false },
   { name: 'Driver', href: '/driver', icon: Crosshair, soon: false },
-  { name: 'Rider', href: '/rider', icon: Route, soon: true },
+  { name: 'Rider', href: '/rider', icon: Route, soon: false },
   { name: 'Feedback', href: '/feedback', icon: ShieldAlert, soon: true },
 ]
 
