@@ -33,7 +33,7 @@ export interface Liquidacion {
   estado: string
   fechaProgramada: string
   fechaEjecutada: string | null
-  detalle: string
+  detalle: { transacciones?: string[]; mensaje?: string } | string | null
   fechaCreacion: string
 }
 
@@ -65,7 +65,7 @@ async function paymentsRequest<T>(
     }
     const res = await fetch(url.toString(), {
       headers: { Authorization: `Bearer ${SECRET}` },
-      next: { revalidate: 30 },
+      cache: 'no-store',
     })
     if (!res.ok) return null
     return (await res.json()) as T
@@ -78,8 +78,19 @@ export async function getBancoCentral(): Promise<BancoCentral | null> {
   return paymentsRequest<BancoCentral>('/api/pagos/admin/banco-central')
 }
 
+function toArray<T>(result: unknown): T[] {
+  if (Array.isArray(result)) return result as T[]
+  // API may wrap arrays in an envelope: { mensaje: "...", transacciones: [...] }
+  if (result && typeof result === 'object') {
+    for (const val of Object.values(result as Record<string, unknown>)) {
+      if (Array.isArray(val)) return val as T[]
+    }
+  }
+  return []
+}
+
 export async function getBilleteras(): Promise<Billetera[]> {
-  return (await paymentsRequest<Billetera[]>('/api/pagos/admin/billeteras')) ?? []
+  return toArray<Billetera>(await paymentsRequest('/api/pagos/admin/billeteras'))
 }
 
 export async function getTransacciones(params?: TransaccionesParams): Promise<Transaccion[]> {
@@ -88,15 +99,17 @@ export async function getTransacciones(params?: TransaccionesParams): Promise<Tr
   if (params?.estadoLiquidacion) p.estadoLiquidacion = params.estadoLiquidacion
   if (params?.idConductor) p.idConductor = params.idConductor
   if (params?.idPasajero) p.idPasajero = params.idPasajero
-  return (await paymentsRequest<Transaccion[]>('/api/pagos/transacciones', p)) ?? []
+  const raw = await paymentsRequest('/api/pagos/transacciones', p)
+  console.log('[getTransacciones] raw type:', Array.isArray(raw) ? 'array' : typeof raw, '| keys:', raw && typeof raw === 'object' && !Array.isArray(raw) ? Object.keys(raw) : 'n/a')
+  return toArray<Transaccion>(raw)
 }
 
 export async function getLiquidaciones(params?: { idConductor?: string }): Promise<Liquidacion[]> {
   const p: Record<string, string> = {}
   if (params?.idConductor) p.idConductor = params.idConductor
-  return (await paymentsRequest<Liquidacion[]>('/api/pagos/liquidaciones', p)) ?? []
+  return toArray<Liquidacion>(await paymentsRequest('/api/pagos/liquidaciones', p))
 }
 
 export async function getUsers(): Promise<User[]> {
-  return (await paymentsRequest<User[]>('/api/pagos/admin/users')) ?? []
+  return toArray<User>(await paymentsRequest('/api/pagos/admin/users'))
 }

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import Topbar from '@/components/Topbar'
 import KpiCard from '@/components/KpiCard'
 import BarChart from '@/components/BarChart'

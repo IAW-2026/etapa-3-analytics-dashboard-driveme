@@ -1,43 +1,25 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { clerkMiddleware, createRouteMatcher, clerkClient } from '@clerk/nextjs/server'
+import { NextResponse } from 'next/server'
+
+const isPublic = createRouteMatcher(['/', '/unauthorized', '/api/webhooks(.*)'])
+
+export default clerkMiddleware(async (auth, req) => {
+  if (isPublic(req)) return
+
+  const { userId } = await auth.protect()
+
+  const client = await clerkClient()
+  const user = await client.users.getUser(userId)
+
+  if ((user.publicMetadata as { role?: string })?.role !== 'admin') {
+    return NextResponse.redirect(new URL('/unauthorized', req.url))
+  }
+})
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
-}
-
-export default function proxy(request: NextRequest) {
-  const expected = (process.env.CONTROL_PLANE_PASSWORD ?? '').trim()
-
-  const authHeader = request.headers.get('authorization')
-
-  if (!authHeader || !authHeader.startsWith('Basic ')) {
-    return unauthorized()
-  }
-
-  const base64 = authHeader.slice(6).trim()
-  let decoded: string
-  try {
-    decoded = atob(base64)
-  } catch {
-    return unauthorized()
-  }
-
-  const colonIndex = decoded.indexOf(':')
-  const password = colonIndex >= 0 ? decoded.slice(colonIndex + 1) : decoded
-
-  if (!expected || password !== expected) {
-    return unauthorized()
-  }
-
-  return NextResponse.next()
-}
-
-function unauthorized() {
-  // Use native Response so the WWW-Authenticate header reaches the browser unchanged
-  return new Response('Unauthorized', {
-    status: 401,
-    headers: {
-      'WWW-Authenticate': 'Basic realm="DriveMe Analytics"',
-      'Content-Type': 'text/plain',
-    },
-  })
+  matcher: [
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    '/(api|trpc)(.*)',
+    '/__clerk/(.*)',
+  ],
 }
