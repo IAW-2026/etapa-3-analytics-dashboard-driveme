@@ -97,6 +97,47 @@ body {
   box-shadow: 0 0 0 1px var(--color-primary), 0 0 15px rgba(220, 38, 38, 0.2);
 }
 
+/* Landing page buttons */
+.landing-btn-primary {
+  width: 100%;
+  padding: 10px 24px;
+  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: none;
+  border-radius: var(--radius-button);
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
+}
+.landing-btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
+}
+
+.landing-btn-secondary {
+  width: 100%;
+  padding: 10px 24px;
+  background-color: transparent;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  color: var(--color-text-secondary);
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: var(--radius-button);
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
+}
+.landing-btn-secondary:hover {
+  border-color: var(--color-primary);
+  color: var(--color-text-primary);
+  background-color: rgba(220, 38, 38, 0.05);
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.15);
+}
+
 /* Section Labels */
 .section-label {
   letter-spacing: 0.2em;

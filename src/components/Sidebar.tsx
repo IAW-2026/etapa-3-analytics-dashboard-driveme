@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { Badge, Crosshair, Route, ShieldAlert, ChevronRight, MapPinned } from 'lucide-react'
+import { UserButton, useUser } from '@clerk/nextjs'
 
 const APPS = [
   { name: 'Payments', href: '/payments', icon: Badge, soon: false },
@@ -16,11 +17,13 @@ const PAYMENTS_VIEWS = [
   { name: 'Overview', href: '/payments', icon: MapPinned },
   { name: 'Transacciones', href: '/payments/transacciones', icon: ChevronRight },
   { name: 'Conductores', href: '/payments/conductores', icon: ChevronRight },
+  { name: 'Pasajeros', href: '/payments/pasajeros', icon: ChevronRight },
 ]
 
 export default function Sidebar() {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const { user } = useUser()
 
   useEffect(() => {
     setMobileOpen(false)
@@ -179,6 +182,33 @@ export default function Sidebar() {
           })}
         </div>
       )}
+
+        {/* User footer */}
+        <div style={{
+          marginTop: 'auto',
+          paddingTop: '16px',
+          borderTop: '1px solid rgba(220,38,38,0.15)',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+            <UserButton appearance={{
+              elements: {
+                avatarBox: { width: '32px', height: '32px', borderRadius: '4px', border: '1px solid rgba(220,38,38,0.3)', boxShadow: '0 0 10px rgba(220,38,38,0.1)' },
+                userButtonPopoverCard: { backgroundColor: '#0A0A0A', border: '1px solid rgba(220,38,38,0.15)', boxShadow: '0 0 30px rgba(220,38,38,0.1)' },
+                userButtonPopoverActionButton: { color: 'var(--color-text-secondary)' },
+                userButtonPopoverFooter: { display: 'none' },
+              },
+            }} />
+            <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+              <span style={{ color: 'var(--color-text-primary)', fontSize: '11px', fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {user?.fullName ?? user?.primaryEmailAddress?.emailAddress ?? '—'}
+              </span>
+              <span className="font-michroma" style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'rgba(220,38,38,0.6)' }}>Admin</span>
+            </div>
+          </div>
+          <p className="font-michroma" style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'rgba(220,38,38,0.3)', margin: 0 }}>
+            DriveMe // v1.0
+          </p>
+        </div>
     </aside>
     </>
   )
