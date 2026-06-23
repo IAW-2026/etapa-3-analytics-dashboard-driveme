@@ -3,6 +3,8 @@ import KpiCard from '@/components/KpiCard'
 import DonutChart from '@/components/DonutChart'
 import { getDriverMetrics } from '@/lib/services/driver'
 
+export const dynamic = 'force-dynamic'
+
 function formatPeso(value: number | null | undefined): string {
   if (value == null) return '—'
   return new Intl.NumberFormat('es-AR', {
