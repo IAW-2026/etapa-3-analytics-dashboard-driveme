@@ -287,7 +287,9 @@ export default function ConductoresView({ billeteras: billeterasProp, transaccio
                         </span>
                       </td>
                       <td style={{ padding: '12px', color: 'var(--color-text-muted)', fontSize: '12px', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {l.detalle || '—'}
+                        {typeof l.detalle === 'object' && l.detalle !== null
+                          ? (l.detalle as { mensaje?: string }).mensaje ?? JSON.stringify(l.detalle)
+                          : (l.detalle as string | null) || '—'}
                       </td>
                     </tr>
                   ))}

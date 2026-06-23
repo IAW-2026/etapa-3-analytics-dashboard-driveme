@@ -33,7 +33,7 @@ export interface Liquidacion {
   estado: string
   fechaProgramada: string
   fechaEjecutada: string | null
-  detalle: string
+  detalle: { transacciones?: string[]; mensaje?: string } | string | null
   fechaCreacion: string
 }
 
