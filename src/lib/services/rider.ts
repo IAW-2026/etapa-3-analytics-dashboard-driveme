@@ -2,13 +2,27 @@ const BASE_URL = (process.env.RIDER_APP_URL || '').replace(/\/$/, '')
 const TOKEN = process.env.RIDER_SERVICE_SECRET || ''
 
 export interface RiderMetrics {
-  totalPasajeros: number
-  pasajerosActivos: number
-  totalSolicitudes: number
-  solicitudesPendientes: number
-  solicitudesAceptadas: number
-  solicitudesCanceladas: number
-  reputacionPromedio: number
+  pasajeros: {
+    total: number
+    activos: number
+    inactivos: number
+    nuevosUltimos30Dias: number
+    reputacionPromedio: number
+  }
+  solicitudes: {
+    total: number
+    pendientes: number
+    aceptadas: number
+    canceladas: number
+    tasaAceptacion: number
+  }
+  viajes: {
+    total: number
+    enCurso: number
+    finalizados: number
+    canceladosPorConductor: number
+    calificacionPromedio: number
+  }
 }
 
 export async function getRiderMetrics(): Promise<RiderMetrics | null> {
