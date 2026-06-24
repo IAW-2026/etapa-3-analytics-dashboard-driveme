@@ -6,6 +6,11 @@ export interface FeedbackStats {
   promedio_general: number
   reportes_pendientes: number
   calificaciones_hoy: number
+  distribucion_puntajes: Record<string, number>
+  calificaciones_por_dia: { fecha: string; cantidad: number }[]
+  reportes_aprobados: number
+  reportes_rechazados: number
+  tasa_aprobacion: number
 }
 
 export async function getFeedbackStats(): Promise<FeedbackStats | null> {
