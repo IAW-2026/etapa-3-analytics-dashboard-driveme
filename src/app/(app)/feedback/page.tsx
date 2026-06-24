@@ -10,8 +10,11 @@ function buildDistribucionData(dist: Record<string, number>) {
   return ['1', '2', '3', '4', '5'].map((k) => ({
     label: `${k}★`,
     value: dist[k] ?? 0,
+    
   }))
 }
+
+
 
 function buildCalXDiaData(data: { fecha: string; cantidad: number }[]) {
   const map = new Map(data.map((d) => [d.fecha, d.cantidad]))
