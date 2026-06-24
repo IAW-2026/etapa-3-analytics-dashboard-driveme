@@ -50,7 +50,7 @@ export interface TransaccionesParams {
 }
 
 const BASE_URL = process.env.PAYMENTS_APP_URL ?? ''
-const SECRET = process.env.PAYMENTS_SERVICE_SECRET ?? ''
+const SECRET = process.env.ANALYTICS_DASHBOARD_SECRET ?? ''
 
 async function paymentsRequest<T>(
   path: string,
