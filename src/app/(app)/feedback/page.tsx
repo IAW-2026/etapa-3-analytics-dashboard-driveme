@@ -87,6 +87,33 @@ export default async function FeedbackAnalyticsPage() {
           <BarChart data={calXDiaData} color="var(--color-primary)" height={220} />
         </div>
 
+        {/* Bloque 4 — Resumen de comentarios + Usuario más calificado */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="brutalist-card p-6 flex flex-col gap-3">
+            <div className="section-label text-[11px]">Resumen de Comentarios (IA)</div>
+            <p style={{ fontSize: '14px', lineHeight: '1.6', color: stats.resumen_comentarios ? 'var(--color-text)' : 'var(--color-text-muted)' }}>
+              {stats.resumen_comentarios ?? 'Sin comentarios suficientes'}
+            </p>
+          </div>
+
+          <div className="brutalist-card p-6 flex flex-col gap-3">
+            <div className="section-label text-[11px]">Usuario Más Calificado</div>
+            {stats.usuario_mas_calificado ? (
+              <div className="flex flex-col gap-1">
+                <span style={{ fontSize: '13px', color: 'var(--color-text-muted)', fontFamily: 'monospace' }}>
+                  {stats.usuario_mas_calificado.id_usuario}
+                </span>
+                <span style={{ fontSize: '28px', fontWeight: 700, color: 'var(--color-primary)' }}>
+                  {stats.usuario_mas_calificado.total_calificaciones}
+                  <span style={{ fontSize: '13px', fontWeight: 400, marginLeft: '6px', color: 'var(--color-text-muted)' }}>calificaciones</span>
+                </span>
+              </div>
+            ) : (
+              <p style={{ fontSize: '14px', color: 'var(--color-text-muted)' }}>Sin datos</p>
+            )}
+          </div>
+        </div>
+
       </div>
     </div>
   )

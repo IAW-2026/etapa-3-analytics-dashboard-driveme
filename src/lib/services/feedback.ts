@@ -11,6 +11,8 @@ export interface FeedbackStats {
   reportes_aprobados: number
   reportes_rechazados: number
   tasa_aprobacion: number
+  resumen_comentarios: string | null
+  usuario_mas_calificado: { id_usuario: string; total_calificaciones: number } | null
 }
 
 export async function getFeedbackStats(): Promise<FeedbackStats | null> {
