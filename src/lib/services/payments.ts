@@ -15,9 +15,10 @@ export interface Billetera {
 
 export interface Transaccion {
   id: string
-  idViaje: string
+  idViaje: string | null
+  idSolicitud: string | null
   idPasajero: string
-  idConductor: string
+  idConductor: string | null
   metodoPago: 'EFECTIVO' | 'MERCADO_PAGO'
   monto: number
   estado: 'PENDIENTE' | 'CONFIRMADO' | 'CANCELADO'
@@ -50,7 +51,7 @@ export interface TransaccionesParams {
 }
 
 const BASE_URL = process.env.PAYMENTS_APP_URL ?? ''
-const SECRET = process.env.ANALYTICS_DASHBOARD_SECRET ?? ''
+const SECRET = process.env.PAYMENTS_SERVICE_SECRET ?? ''
 
 async function paymentsRequest<T>(
   path: string,

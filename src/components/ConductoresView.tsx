@@ -58,7 +58,7 @@ export default function ConductoresView({ billeteras: billeterasProp, transaccio
   )
 
   const filteredTransacciones = useMemo(() => {
-    const byId = transacciones.filter((tx) => conductorIds.has(tx.idConductor))
+    const byId = transacciones.filter((tx) => tx.idConductor !== null && conductorIds.has(tx.idConductor))
     return filterByDateRange(byId, dateFrom, dateTo, (tx) => tx.fechaCreacion)
   }, [transacciones, conductorIds, dateFrom, dateTo])
 

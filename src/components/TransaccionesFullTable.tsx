@@ -81,7 +81,7 @@ export default function TransaccionesFullTable({ transacciones }: Props) {
                 {tx.id.slice(0, 8)}…
               </td>
               <td style={{ padding: '12px', color: 'var(--color-text-muted)', fontSize: '11px', fontFamily: 'var(--font-geist-mono, monospace)' }}>
-                {tx.idViaje?.slice(0, 8)}…
+                {tx.idViaje ? `${tx.idViaje.slice(0, 8)}…` : '—'}
               </td>
 
               {/* Pasajero — with filter button */}
@@ -105,16 +105,18 @@ export default function TransaccionesFullTable({ transacciones }: Props) {
               <td style={{ padding: '12px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <span style={{ color: 'var(--color-text-muted)', fontSize: '11px', fontFamily: 'var(--font-geist-mono, monospace)' }}>
-                    {tx.idConductor?.slice(0, 8)}…
+                    {tx.idConductor ? `${tx.idConductor.slice(0, 8)}…` : '—'}
                   </span>
-                  <button
-                    onClick={() => setFilter('idConductor', tx.idConductor)}
-                    title={tx.idConductor}
-                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--color-text-muted)', padding: '2px', display: 'flex', alignItems: 'center', opacity: 0.4, transition: 'opacity 150ms' }}
-                    className="hover:opacity-100"
-                  >
-                    <Filter size={11} />
-                  </button>
+                  {tx.idConductor && (
+                    <button
+                      onClick={() => setFilter('idConductor', tx.idConductor!)}
+                      title={tx.idConductor}
+                      style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--color-text-muted)', padding: '2px', display: 'flex', alignItems: 'center', opacity: 0.4, transition: 'opacity 150ms' }}
+                      className="hover:opacity-100"
+                    >
+                      <Filter size={11} />
+                    </button>
+                  )}
                 </div>
               </td>
 
