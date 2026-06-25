@@ -63,8 +63,9 @@ export default function TransaccionesFilter() {
   return (
     <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-end', flexWrap: 'wrap' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-        <label className="section-label" style={{ fontSize: '10px' }}>ESTADO</label>
+        <label htmlFor="filter-estado" className="section-label" style={{ fontSize: '10px' }}>ESTADO</label>
         <select
+          id="filter-estado"
           className="brutalist-input font-mono"
           style={inputStyle}
           value={estado}
@@ -78,8 +79,9 @@ export default function TransaccionesFilter() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-        <label className="section-label" style={{ fontSize: '10px' }}>LIQUIDACIÓN</label>
+        <label htmlFor="filter-liquidacion" className="section-label" style={{ fontSize: '10px' }}>LIQUIDACIÓN</label>
         <select
+          id="filter-liquidacion"
           className="brutalist-input font-mono"
           style={inputStyle}
           value={estadoLiquidacion}
@@ -92,9 +94,10 @@ export default function TransaccionesFilter() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-        <label className="section-label" style={{ fontSize: '10px' }}>PASAJERO</label>
+        <label htmlFor="filter-pasajero" className="section-label" style={{ fontSize: '10px' }}>PASAJERO</label>
         <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center' }}>
           <input
+            id="filter-pasajero"
             type="text"
             className="brutalist-input font-mono"
             style={{ ...inputStyle, paddingRight: idPasajeroInput ? '28px' : undefined }}
@@ -114,9 +117,10 @@ export default function TransaccionesFilter() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-        <label className="section-label" style={{ fontSize: '10px' }}>CONDUCTOR</label>
+        <label htmlFor="filter-conductor" className="section-label" style={{ fontSize: '10px' }}>CONDUCTOR</label>
         <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center' }}>
           <input
+            id="filter-conductor"
             type="text"
             className="brutalist-input font-mono"
             style={{ ...inputStyle, paddingRight: idConductorInput ? '28px' : undefined }}
