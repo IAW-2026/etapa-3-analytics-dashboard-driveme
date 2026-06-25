@@ -127,9 +127,10 @@ export default function PasajerosView({ riders: ridersProp, transacciones: trans
       <div className="brutalist-card p-5">
         <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-end', flexWrap: 'wrap' }}>
           <div>
-            <label className="section-label" style={{ fontSize: '10px', display: 'block', marginBottom: '6px' }}>PASAJERO</label>
+            <label htmlFor="pasajeros-id" className="section-label" style={{ fontSize: '10px', display: 'block', marginBottom: '6px' }}>PASAJERO</label>
             <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center' }}>
               <input
+                id="pasajeros-id"
                 type="text"
                 className="brutalist-input font-mono"
                 style={{ ...dateInputStyle, width: '220px', paddingRight: idInput ? '28px' : undefined }}
@@ -148,12 +149,12 @@ export default function PasajerosView({ riders: ridersProp, transacciones: trans
             </div>
           </div>
           <div>
-            <label className="section-label" style={{ fontSize: '10px', display: 'block', marginBottom: '6px' }}>DESDE</label>
-            <input type="date" className="brutalist-input" style={dateInputStyle} value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} />
+            <label htmlFor="pasajeros-desde" className="section-label" style={{ fontSize: '10px', display: 'block', marginBottom: '6px' }}>DESDE</label>
+            <input id="pasajeros-desde" type="date" className="brutalist-input" style={dateInputStyle} value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} />
           </div>
           <div>
-            <label className="section-label" style={{ fontSize: '10px', display: 'block', marginBottom: '6px' }}>HASTA</label>
-            <input type="date" className="brutalist-input" style={dateInputStyle} value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
+            <label htmlFor="pasajeros-hasta" className="section-label" style={{ fontSize: '10px', display: 'block', marginBottom: '6px' }}>HASTA</label>
+            <input id="pasajeros-hasta" type="date" className="brutalist-input" style={dateInputStyle} value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
           </div>
           {hasFilter && (
             <button
@@ -239,7 +240,7 @@ export default function PasajerosView({ riders: ridersProp, transacciones: trans
                       <span style={{
                         display: 'inline-block', padding: '2px 8px', borderRadius: 'var(--radius-input)',
                         fontSize: '10px', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase',
-                        color: r.metodoPredominante === 'EFECTIVO' ? 'var(--color-primary)' : 'var(--color-info)',
+                        color: r.metodoPredominante === 'EFECTIVO' ? '#F87171' : '#60A5FA',
                         backgroundColor: r.metodoPredominante === 'EFECTIVO' ? 'rgba(220,38,38,0.12)' : 'rgba(59,130,246,0.12)',
                         border: r.metodoPredominante === 'EFECTIVO' ? '1px solid rgba(220,38,38,0.3)' : '1px solid rgba(59,130,246,0.3)',
                       }}>

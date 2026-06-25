@@ -122,9 +122,10 @@ export default function ConductoresView({ billeteras: billeterasProp, transaccio
       <div className="brutalist-card p-5">
         <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-end', flexWrap: 'wrap' }}>
           <div>
-            <label className="section-label" style={{ fontSize: '10px', display: 'block', marginBottom: '6px' }}>CONDUCTOR</label>
+            <label htmlFor="conductores-id" className="section-label" style={{ fontSize: '10px', display: 'block', marginBottom: '6px' }}>CONDUCTOR</label>
             <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center' }}>
               <input
+                id="conductores-id"
                 type="text"
                 className="brutalist-input font-mono"
                 style={{ ...dateInputStyle, width: '220px', paddingRight: idInput ? '28px' : undefined }}
@@ -143,12 +144,12 @@ export default function ConductoresView({ billeteras: billeterasProp, transaccio
             </div>
           </div>
           <div>
-            <label className="section-label" style={{ fontSize: '10px', display: 'block', marginBottom: '6px' }}>DESDE</label>
-            <input type="date" className="brutalist-input" style={dateInputStyle} value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} />
+            <label htmlFor="conductores-desde" className="section-label" style={{ fontSize: '10px', display: 'block', marginBottom: '6px' }}>DESDE</label>
+            <input id="conductores-desde" type="date" className="brutalist-input" style={dateInputStyle} value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} />
           </div>
           <div>
-            <label className="section-label" style={{ fontSize: '10px', display: 'block', marginBottom: '6px' }}>HASTA</label>
-            <input type="date" className="brutalist-input" style={dateInputStyle} value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
+            <label htmlFor="conductores-hasta" className="section-label" style={{ fontSize: '10px', display: 'block', marginBottom: '6px' }}>HASTA</label>
+            <input id="conductores-hasta" type="date" className="brutalist-input" style={dateInputStyle} value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
           </div>
           {hasFilter && (
             <button
