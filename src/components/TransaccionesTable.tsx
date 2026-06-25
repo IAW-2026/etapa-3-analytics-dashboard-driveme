@@ -1,9 +1,9 @@
 import type { Transaccion } from '@/lib/services/payments'
 
 const ESTADO_COLORS: Record<string, string> = {
-  CONFIRMADO: 'var(--color-success)',
+  CONFIRMADO: '#10B981',
   PENDIENTE: 'var(--color-warning)',
-  CANCELADO: 'var(--color-error)',
+  CANCELADO: '#F87171',
 }
 
 const ESTADO_BG: Record<string, string> = {

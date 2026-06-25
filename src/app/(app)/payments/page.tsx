@@ -124,7 +124,7 @@ export default async function PaymentsOverviewPage() {
                     <span
                       className="font-mono"
                       style={{
-                        color: 'var(--color-primary)',
+                        color: '#EF4444',
                         fontSize: '12px',
                         textShadow: '0 0 10px rgba(220, 38, 38, 0.4)',
                       }}
@@ -158,9 +158,8 @@ export default async function PaymentsOverviewPage() {
                     <span
                       className="font-mono"
                       style={{
-                        color: 'var(--color-secondary)',
+                        color: 'var(--color-text-secondary)',
                         fontSize: '12px',
-                        textShadow: '0 0 10px rgba(75, 85, 99, 0.4)',
                       }}
                     >
                       {metodoPago.mercadoPago}%

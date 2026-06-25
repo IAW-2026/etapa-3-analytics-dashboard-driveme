@@ -5,9 +5,9 @@ import { Filter } from 'lucide-react'
 import type { Transaccion } from '@/lib/services/payments'
 
 const ESTADO_COLORS: Record<string, string> = {
-  CONFIRMADO: 'var(--color-success)',
+  CONFIRMADO: '#10B981',
   PENDIENTE: 'var(--color-warning)',
-  CANCELADO: 'var(--color-error)',
+  CANCELADO: '#F87171',
 }
 const ESTADO_BG: Record<string, string> = {
   CONFIRMADO: 'rgba(5, 150, 105, 0.15)',
@@ -20,8 +20,8 @@ const ESTADO_BORDER: Record<string, string> = {
   CANCELADO: '1px solid rgba(239, 68, 68, 0.3)',
 }
 const LIQ_COLORS: Record<string, string> = {
-  LIQUIDADO: 'var(--color-info)',
-  PENDIENTE: 'var(--color-secondary)',
+  LIQUIDADO: '#60A5FA',
+  PENDIENTE: '#9CA3AF',
 }
 
 function formatMonto(monto: number) {

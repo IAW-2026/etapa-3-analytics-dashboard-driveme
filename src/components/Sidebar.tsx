@@ -91,7 +91,7 @@ export default function Sidebar() {
       >
         {/* Logo */}
         <div style={{ marginBottom: '32px', paddingLeft: '8px' }} className="mt-12 md:mt-0">
-          <div className="font-michroma" style={{ color: 'var(--color-primary)', fontWeight: 700, fontSize: '15px', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+          <div className="font-michroma" style={{ color: '#EF4444', fontWeight: 700, fontSize: '15px', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
             DriveMe
           </div>
           <div style={{ color: 'var(--color-text-muted)', fontSize: '11px', marginTop: '4px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>▸ Tactical Command</div>
@@ -121,7 +121,7 @@ export default function Sidebar() {
                 transition: 'all 0.15s ease-in-out',
                 backgroundColor: active ? 'rgba(220, 38, 38, 0.08)' : 'transparent',
                 border: active ? '1px solid rgba(220, 38, 38, 0.2)' : '1px solid transparent',
-                color: active ? 'var(--color-primary)' : 'var(--color-text-secondary)',
+                color: active ? '#EF4444' : 'var(--color-text-secondary)',
                 boxShadow: active ? '0 0 15px rgba(220, 38, 38, 0.1)' : 'none'
               }}
             >
@@ -172,7 +172,7 @@ export default function Sidebar() {
                   transition: 'all 0.15s ease-in-out',
                   backgroundColor: active ? 'rgba(220, 38, 38, 0.05)' : 'transparent',
                   border: active ? '1px solid rgba(220, 38, 38, 0.1)' : '1px solid transparent',
-                  color: active ? 'var(--color-primary)' : 'var(--color-text-secondary)',
+                  color: active ? '#EF4444' : 'var(--color-text-secondary)',
                 }}
               >
                 <Icon size={14} />
@@ -202,10 +202,10 @@ export default function Sidebar() {
               <span style={{ color: 'var(--color-text-primary)', fontSize: '11px', fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {user?.fullName ?? user?.primaryEmailAddress?.emailAddress ?? '—'}
               </span>
-              <span className="font-michroma" style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'rgba(220,38,38,0.6)' }}>Admin</span>
+              <span className="font-michroma" style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.15em', color: '#F87171' }}>Admin</span>
             </div>
           </div>
-          <p className="font-michroma" style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'rgba(220,38,38,0.3)', margin: 0 }}>
+          <p className="font-michroma" style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-text-muted)', margin: 0 }}>
             DriveMe // v1.0
           </p>
         </div>

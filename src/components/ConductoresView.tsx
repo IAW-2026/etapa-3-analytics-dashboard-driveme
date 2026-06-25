@@ -226,7 +226,7 @@ export default function ConductoresView({ billeteras: billeterasProp, transaccio
                   <td style={{ padding: '12px', color: 'var(--color-text-primary)', fontSize: '13px', fontFamily: 'var(--font-geist-mono, monospace)', whiteSpace: 'nowrap' }}>
                     {formatPeso(Number(b.montoLiquidado))}
                   </td>
-                  <td style={{ padding: '12px', color: 'var(--color-primary)', fontSize: '13px', fontFamily: 'var(--font-geist-mono, monospace)', whiteSpace: 'nowrap', textShadow: '0 0 10px rgba(220,38,38,0.4)' }}>
+                  <td style={{ padding: '12px', color: '#EF4444', fontSize: '13px', fontFamily: 'var(--font-geist-mono, monospace)', whiteSpace: 'nowrap', textShadow: '0 0 10px rgba(220,38,38,0.4)' }}>
                     {formatPeso(Number(b.montoPendiente))}
                   </td>
                 </tr>
@@ -279,7 +279,7 @@ export default function ConductoresView({ billeteras: billeterasProp, transaccio
                         <span style={{
                           display: 'inline-block', padding: '2px 8px', borderRadius: 'var(--radius-input)',
                           fontSize: '10px', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase',
-                          color: l.estado === 'EJECUTADA' || l.estado === 'PROCESADA' ? 'var(--color-success)' : 'var(--color-warning)',
+                          color: l.estado === 'EJECUTADA' || l.estado === 'PROCESADA' ? '#10B981' : 'var(--color-warning)',
                           backgroundColor: l.estado === 'EJECUTADA' || l.estado === 'PROCESADA' ? 'rgba(5,150,105,0.15)' : 'rgba(217,119,6,0.15)',
                           border: l.estado === 'EJECUTADA' || l.estado === 'PROCESADA' ? '1px solid rgba(5,150,105,0.3)' : '1px solid rgba(217,119,6,0.3)',
                         }}>

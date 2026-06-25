@@ -73,7 +73,7 @@ export default function BilleterasTable({ billeteras, limit }: BilleterasTablePr
               <td
                 style={{
                   padding: '12px',
-                  color: 'var(--color-primary)',
+                  color: '#EF4444',
                   fontSize: '13px',
                   fontFamily: 'var(--font-geist-mono, monospace)',
                   whiteSpace: 'nowrap',

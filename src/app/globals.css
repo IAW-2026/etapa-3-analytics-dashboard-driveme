@@ -14,7 +14,7 @@
   --color-accent: #FF0000;
   --color-text-primary: #FFFFFF;
   --color-text-secondary: #9CA3AF;
-  --color-text-muted: #6B7280;
+  --color-text-muted: #808080;
   --color-success: #059669;
   --color-warning: #D97706;
   --color-error: #EF4444;
@@ -142,6 +142,6 @@ body {
 .section-label {
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: #EF4444;
   font-family: var(--font-michroma, ui-sans-serif, system-ui, sans-serif);
 }

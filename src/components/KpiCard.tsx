@@ -2,7 +2,7 @@ type AccentColor = 'cyan' | 'violet' | 'green' | 'amber' | 'blue' | 'red'
 
 const ACCENT_COLORS: Record<AccentColor, string> = {
   cyan: 'var(--color-text-primary)',
-  violet: 'var(--color-secondary)',
+  violet: '#94A3B8',
   green: 'var(--color-success)',
   amber: 'var(--color-warning)',
   blue: 'var(--color-info)',
